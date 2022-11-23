@@ -1,0 +1,9 @@
+index:
+   path: /
+   controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+   defaults:
+      path: /login
+      permanent: true
+      
+api_login_check:
+    path: /api/login_check

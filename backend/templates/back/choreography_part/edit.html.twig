@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ChoreographyPart{% endblock %}
+
+{% block body %}
+    <h1>Modifier la partie de la chorégraphie: {{ choreo.name }}</h1>
+
+    {% include "_flash_message.html.twig" %}
+
+    {{ include('back/choreography_part/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_back_choreography_edit', {'id': choreo.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Retour à la chorégraphie</button></a>
+    
+    {{ include('back/video/index_chore.html.twig') }}
+
+    {{ include('back/choreography_part/_delete_form.html.twig') }}
+{% endblock %}

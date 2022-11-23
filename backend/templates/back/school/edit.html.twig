@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une école{% endblock %}
+
+{% block body %}
+    <h1>Modifier une école</h1>
+    {% include "_flash_message.html.twig" %}
+
+    {{ include('back/school/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+    <a href="{{ path('app_back_school_index') }}"><button class="badge bg-info text-dark fs-6 p-3 mt-3 border-0">Retour à la liste</button></a>
+
+    {{ include('back/location/index.html.twig') }}
+    
+{% endblock %}

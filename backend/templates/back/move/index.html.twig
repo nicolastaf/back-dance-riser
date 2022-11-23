@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des mouvements{% endblock %}
+
+{% block body %}
+    <h1>Liste des mouvements</h1>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <p><i class="bi bi-info-circle-fill"></i> Pour ajouter des vidéos aux mouvements il faut d'abord créer son mouvement. Puis, en cliquant sur modifier le mouvement, vous pourrez ajouter des vidéos.</p>
+    </div>
+    {% include "_flash_message.html.twig" %}
+        {% if is_granted('ROLE_ADMIN') %} 
+        <h4>Mouvements génériques</h4>
+        <div class="d-flex justify-content-end m-3">
+            <a href="{{ path('app_back_move_new') }}"><span class="badge bg-info text-dark fs-6 p-3"><i class="bi bi-plus-circle-fill"></i> Ajouter un mouvement générique</span></a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Catégorie</th>
+                    <th>Niveau</th>
+                    <th>Visibilité</th>
+                    <th>Date de création</th>
+                    <th>Date de modification</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for move in moves %}
+                <tr>
+                    <td>{{ move.name }}</td>
+                    <td>{{ move.categoryMove.name }}</td>
+                    <td>{{ move.level.name }}</td>
+                    <td>{{ move.visibility ? 'Yes' : 'No' }}</td>
+                    <td>{{ move.createdAt ? move.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ move.updatedAt ? move.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_back_move_edit', {'id': move.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Modifier</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        <h4>Mouvements liés à une école</h4>
+        {% include "_flash_message.html.twig" %}
+        <div class="d-flex justify-content-end m-3">
+            <a href="{{ path('app_back_move_school_new') }}"><span class="badge bg-info text-dark fs-6 p-3"><i class="bi bi-plus-circle-fill"></i> Ajouter un mouvement lié à une école</span></a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Catégorie</th>
+                    <th>Niveau</th>
+                    <th>School</th>
+                    <th>Date de création</th>
+                    <th>Date de modification</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for move in moves|filter(move => move.school != null) %}
+                <tr>
+                    <td>{{ move.name }}</td>
+                    <td>{{ move.categoryMove.name }}</td>
+                    <td>{{ move.level.name }}</td>
+                    <td>{{ move.school.name }}</td>
+                    <td>{{ move.createdAt ? move.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ move.updatedAt ? move.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_back_move_school_edit', {'id': move.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Modifier</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock %}

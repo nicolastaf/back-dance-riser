@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ChoreographyPart{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle partie à la chorégraphie: {{ choreography.name }}</h1>
+
+    {{ include('back/choreography_part/_form.html.twig') }}
+
+    <a href="{{ path('app_back_choreography_edit', {'id': choreography.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Retour à la chorégraphie</button></a>
+{% endblock %}

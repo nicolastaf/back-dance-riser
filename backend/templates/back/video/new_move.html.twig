@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Video{% endblock %}
+
+{% block body %}
+    <h1>Créer une vidéo pour le move: {{ move.name }}</h1>
+
+    {{ include('back/video/_form.html.twig') }}
+    {% if move.school == null %}
+        <a href="{{ path('app_back_move_edit', {'id': move.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Retour au Move</button></a>
+    {% else %}
+        <a href="{{ path('app_back_move_school_edit', {'id': move.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Retour au Move</button></a>
+    {% endif %}
+{% endblock %}

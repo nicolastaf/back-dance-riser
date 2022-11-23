@@ -1,0 +1,38 @@
+<h1>Liste des lieux</h1>
+<div class="d-flex justify-content-end">
+        <a href="{{ path('app_back_location_new', {'id': school.id}) }}"><span class="badge bg-info text-dark fs-6 p-3 border-0"><i class="bi bi-plus-circle-fill"></i> Ajouter une adresse</span></a>
+    </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Adresse</th>
+            <th>Complément d'adresse</th>
+            <th>Code postal</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Date de création</th>
+            <th>Date de modification</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for location in locations %}
+        <tr>
+            <td>{{ location.address }}</td>
+            <td>{{ location.addressComplement }}</td>
+            <td>{{ location.postalCode }}</td>
+            <td>{{ location.city }}</td>
+            <td>{{ location.country }}</td>
+            <td>{{ location.createdAt ? location.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ location.updatedAt ? location.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            <td>
+                <a href="{{ path('app_back_location_edit', {'id': location.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Modifier</button></a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="9">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

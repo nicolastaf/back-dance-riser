@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <!-- Bootstrap icons -->
+        {# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"> #}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+   
+    </head>
+    <body>
+        <nav class="navbar" style="background-color: #e3f2fd;">
+            <div class="container">
+                <a href="{{ path('home') }}" class="navbar-brand link-dark">Back Office</a>
+                <div class="d-flex align-items-center">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    Bienvenue : <span class="fw-bold me-3 ps-2">{{ app.user.firstname }} {{ app.user.lastname }}</span>
+                    <a class="d-flex nav-link btn btn-danger me-2 text-white" href="{{ path('app_logout') }}"><i class="bi bi-power"></i></a>
+                {% else %}
+                    <a class="nav-link btn btn-success me-2 text-white" href="{{ path('app_login') }}"><i class="bi bi-power"></i></a>
+                {% endif %}
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                {% if is_granted('ROLE_MANAGER') %}
+                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                            <li class="p-2">
+                                <i class="fs-4 bi-house-door"></i> <span class="ms-1 d-none d-sm-inline"><a href="{{ path('front_link') }}" class="link-light">Lien vers le site</a></span>
+                            </li>
+                            <li class="p-2">
+                                <i class="fs-4 bi-building"></i> <span class="ms-1 d-none d-sm-inline"><a href="{{ path('app_back_school_index') }}" class="link-light">Ecoles</a></span>
+                            </li>
+                            <li class="p-2">
+                                <i class="fs-4 bi bi-c-square"></i> <span class="ms-1 d-none d-sm-inline"><a href="{{ path('app_back_choreography_index') }}" class="link-light">Chorégraphies</a></span>
+                            </li>
+                            <li class="p-2">
+                                <i class="fs-4 bi bi-kanban"></i> <span class="ms-1 d-none d-sm-inline"><a href="{{ path('app_back_move_index') }}" class="link-light">Mouvements</a></span>
+                            </li>
+                            <li class="p-2">
+                                <i class="fs-4 bi bi-boombox"></i> <span class="ms-1 d-none d-sm-inline"><a href="{{ path('app_back_event_index') }}" class="link-light">Evénements</a></span>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %} 
+                            <hr>
+                            <span>Accès Admin uniquement</span>
+                            <li class="p-2">
+                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline"><a href="{{ path('app_back_user_index') }}" class="link-light">Utilisateurs</a></span>
+                            </li>
+                            <li class="p-2">
+                                <i class="fs-4 bi bi-diagram-2"></i> <span class="ms-1 d-none d-sm-inline"><a href="{{ path('app_back_category_move_index') }}" class="link-light">Catégories de mouvement</a></span>
+                            </li>
+                            <li class="p-2">
+                                <i class="fs-4 bi bi-diagram-3"></i> <span class="ms-1 d-none d-sm-inline"><a href="{{ path('app_back_style_index') }}" class="link-light">Styles</a></span>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="container-fluid col py-3 m-3">
+                <!-- content -->
+                {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+            {% block javascript %}{% endblock %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>

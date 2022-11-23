@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Location{% endblock %}
+
+{% block body %}
+    <h1>Modification du lieu</h1>
+
+    {{ include('back/location/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_back_school_edit', {'id': school.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Retour à l'école</button></a>
+
+    {{ include('back/location/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le level{% endblock %}
+
+{% block body %}
+    <h1>Modifier le level de l'utilisateur : {{ user.firstname }} {{ user.lastname }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="badge bg-info text-dark fs-6 p-3 border-0">{{ button_label|default('Modifier le level') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_back_member', {'id': school.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Retour aux membres de l'école</button></a>
+
+{% endblock %}

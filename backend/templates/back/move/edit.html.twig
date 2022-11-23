@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un mouvement{% endblock %}
+
+{% block body %}
+    <h1>Modifier un mouvement</h1>
+    {% include "_flash_message.html.twig" %}
+
+    {{ include('back/move/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+    <a href="{{ path('app_back_move_index') }}"><button class="badge bg-info text-dark fs-6 p-3 mt-3 border-0">Retour à la liste</button></a>
+
+    {{ include('back/video/index_move.html.twig') }}
+
+    {{ include('back/move/_delete_form.html.twig') }}
+{% endblock %}

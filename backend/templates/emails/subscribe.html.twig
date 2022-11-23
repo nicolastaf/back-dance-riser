@@ -1,0 +1,8 @@
+<p>Bienvenue 
+{% if user.blaze is empty %}
+{{ user.firstname }} {{ user.lastname }}
+{% else %}
+{{ user.blaze }}
+{% endif %}
+<p>Nous sommes heureux de t'accueillir comme nouveau membre de Dance Riser.</p>
+<p>C'est parti pour danser!</p>

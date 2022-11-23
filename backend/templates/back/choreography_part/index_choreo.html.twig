@@ -1,0 +1,32 @@
+<h5>Parties associées à cette chorégraphie</h5>
+<div class="d-flex justify-content-end">
+    <a href="{{ path('app_back_choreography_part_new', {'id': choreography.id}) }}"><span class="badge bg-info text-dark fs-6 p-3"><i class="bi bi-plus-circle-fill"></i> Ajouter une partie</span></a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Ordre</th>
+            <th>Date de création</th>
+            <th>Date de modification</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for choreography_part in choreography_parts %}
+        <tr>
+            <td>{{ choreography_part.name }}</td>
+            <td>{{ choreography_part.orderChoreo }}</td>
+            <td>{{ choreography_part.createdAt ? choreography_part.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            <td>{{ choreography_part.updatedAt ? choreography_part.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            <td>
+                <a href="{{ path('app_back_choreography_part_edit', {'id': choreography_part.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Modifier</button></a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="6">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CategoryMove{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle catégorie de mouvement</h1>
+
+    {{ include('back/category_move/_form.html.twig') }}
+
+    <a href="{{ path('app_back_category_move_index') }}"><button class="badge bg-info text-dark fs-6 p-3 mt-3 border-0">Retour à la liste</button></a>
+{% endblock %}

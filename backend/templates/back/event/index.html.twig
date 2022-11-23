@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Event index{% endblock %}
+
+{% block body %}
+    <h1>Liste des événements</h1>
+    {% include "_flash_message.html.twig" %}
+    <div class="d-flex justify-content-end">    
+        <a href="{{ path('app_back_event_new') }}"><span class="badge bg-info text-dark fs-6 p-3 border-0"><i class="bi bi-plus-circle-fill"></i> Ajouter un événement</span></a>
+    </div>
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Date de l'événemenent</th>
+                <th>Téléphone de l'événement</th>
+                <th>Email de l'événement</th>
+                <th>Date de création</th>
+                <th>Date de modification</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                <th>Créé par</th>
+                {% endif %}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>{{ event.date ? event.date|date('d-m-Y H:i')}}</td>
+                <td>{{ event.phone }}</td>
+                <td>{{ event.email }}</td>
+                <td>{{ event.createdAt ? event.createdAt|date('d-m-Y H:i') : '' }}</td>
+                <td>{{ event.updatedAt ? event.updatedAt|date('d-m-Y H:i') : '' }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                <td>{{ event.createdBy.firstname }} {{ event.createdBy.lastname }}</td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('app_back_event_edit', {'id': event.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Modifier</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">Pas de résultats</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membres{% endblock %}
+
+{% block body %}
+    <h1>Liste des membres de l'école: {{ school.name }}</h1>
+    <h5>Nouvelles demandes d'adhésion</h5>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Prénom d'utilisateur</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Email utilisateur</th>
+                    <th>Blaze</th>
+                    <th>Commentaire</th>
+                    <th>Admission dans l'école</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for member in members|filter(member => member.newRequest == true) %}
+                <tr>
+                    <td>{{ member.user.firstname }}</td>
+                    <td>{{ member.user.lastname }}</td>
+                    <td>{{ member.user.email }}</td>
+                    <td>{{ member.user.blaze }}</td>
+                    <td>{{ member.comment }}</td>
+                    <td>
+                    <a href="{{ path('member_accepted', {id: member.id}) }}"><i class="bi bi-toggle-off fs-4"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="13">Pas de résultats</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ path('app_back_school_index') }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Retour à la liste des écoles</button></a>
+    <h5>Liste des membres existants</h5>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Prénom d'utilisateur</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Email utilisateur</th>
+                    <th>Blaze</th>
+                    <th>Activé / Désactivé</th>
+                    <th>Level</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for member in members_by_role|filter(member => member.newRequest == false) %}
+                <tr>
+                    <td>{{ member.user.firstname }}</td>
+                    <td>{{ member.user.lastname }}</td>
+                    <td>{{ member.user.email }}</td>
+                    <td>{{ member.user.blaze }}</td>
+                    <td>
+                    {% if member.activated == 1 %}<span>Activé</span><br/>
+                    <a href="{{ path('member_switch', {id: member.id}) }}"><i class="bi bi-toggle-on fs-4"></i></a>
+                    {% else %}<span>Désactivé</span><br/>
+                    <a href="{{ path('member_switch', {id: member.id}) }}"><i class="bi bi-toggle-off fs-4"></i></a>
+                    {% endif %}
+                    </td>
+                    <td>{{ member.user.level.name }}</td>
+                    <td>
+                    <a href="{{ path('app_back_level_edit', {'id': member.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Changer le Level</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="13">Pas de résultats</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

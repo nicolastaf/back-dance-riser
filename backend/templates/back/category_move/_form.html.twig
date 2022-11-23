@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }} 
+    {{ form_row(form.description) }} 
+    {% if category_move.image is not null %}  
+    <p>Image actuelle :</p>
+    <img id="imgschool" style="max-width: 100px;" src="{{ category_move.image }}" />
+    {% endif %}
+    {{ form_row(form.image) }} 
+    {{ form_row(form.style) }} 
+    {{ form_row(form.activated) }} 
+    <button class="badge bg-info text-dark fs-6 p-3 border-0">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CategoryMove index{% endblock %}
+
+{% block body %}
+    <h1>Liste des catégories de mouvement</h1>
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('app_back_category_move_new') }}"><span class="badge bg-info text-dark fs-6 p-3"><i class="bi bi-plus-circle-fill"></i> Ajouter une catégorie de mouvement</span></a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Date de création</th>
+                <th>Date de modification</th>
+                <th>Catégorie de style</th>
+                <th>Activé / Désactivé</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category_move in category_moves %}
+            <tr>
+                <td>{{ category_move.name }}</td>
+                <td>{{ category_move.description }}</td>
+                <td>{{ category_move.createdAt ? category_move.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ category_move.updatedAt ? category_move.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ category_move.style.name }}</td>
+                <td>{% if category_move.activated == 1 %}Activé{% else %}Désactivé{% endif %}</td>
+                <td>
+                    <a href="{{ path('app_back_category_move_edit', {'id': category_move.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Modifier</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Pas de résultats</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

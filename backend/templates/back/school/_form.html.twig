@@ -1,0 +1,16 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}  
+    {{ form_row(form.description) }}
+    {{ form_row(form.email) }}   
+    {{ form_row(form.phone) }}
+    {{ form_row(form.lessonType) }}  
+    {{ form_row(form.openTo) }}  
+    {{ form_row(form.level) }} 
+    {% if school.image is not null %}  
+    <p>Image actuelle :</p>
+    <img id="imgschool" style="max-width: 100px;" src="{{ school.image }}" />
+    {% endif %}
+    {{ form_row(form.image) }} 
+    {{ form_row(form.agendaLink) }}           
+    <button class="badge bg-info text-dark fs-6 p-3 border-0">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Style index{% endblock %}
+
+{% block body %}
+    <h1>Liste des styles</h1>
+     <div class="d-flex justify-content-end">
+        <a href="{{ path('app_back_style_new') }}"><span class="badge bg-info text-dark fs-6 p-3"><i class="bi bi-plus-circle-fill"></i> Ajouter un style</span></a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Date de création</th>
+                <th>Date de modification</th>
+                <th>Activé / Désactivé</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for style in styles %}
+            <tr>
+                <td>{{ style.name }}</td>
+                <td>{{ style.createdAt ? style.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ style.updatedAt ? style.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{% if style.activated == 1 %}Activé{% else %}Désactivé{% endif %}</td>
+                <td>
+                    <a href="{{ path('app_back_style_edit', {'id': style.id}) }}"><button class="badge bg-info text-dark fs-6 p-3 border-0">Modifier</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Pas de résultats</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
